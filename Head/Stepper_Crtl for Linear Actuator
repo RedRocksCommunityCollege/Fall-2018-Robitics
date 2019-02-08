@@ -1,0 +1,57 @@
+/*
+ *LED_CRTL_2_BUTTON 
+ *Authored (FROM SCRATCH!!!) by Connor Dietschwright
+*/
+
+const int leftPin = 11;
+const int rightPin = 10;
+const int dirPin = 6;
+const int stepPin = 5;
+int leftState = 0;
+int rightState = 0;
+int dirState = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(leftPin, INPUT);
+  pinMode(rightPin, INPUT);
+  pinMode(dirPin, OUTPUT);
+  pinMode(stepPin, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  leftState = digitalRead(leftPin);
+  rightState = digitalRead(rightPin);
+
+  if (leftState == HIGH && rightState == LOW){
+      digitalWrite(dirPin, LOW);
+     {
+          digitalWrite(stepPin,HIGH);
+          delayMicroseconds(450);
+          digitalWrite(stepPin,LOW);
+          delayMicroseconds(450);
+    }
+  }
+  else if (leftState == LOW && rightState == HIGH){
+      digitalWrite(dirPin, HIGH);
+     {
+          digitalWrite(stepPin,HIGH);
+          delayMicroseconds(450);
+          digitalWrite(stepPin,LOW);
+          delayMicroseconds(450);
+    }
+    }
+  else if (leftState == HIGH && rightState == HIGH){
+      digitalWrite(dirPin, LOW);
+     {
+          digitalWrite(stepPin,LOW);
+    }
+    }
+  else if (leftState == LOW && rightState == LOW){
+      digitalWrite(dirPin, LOW);
+     {
+          digitalWrite(stepPin,LOW);
+    }
+    }
+}
