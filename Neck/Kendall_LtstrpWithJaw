@@ -1,0 +1,59 @@
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+#include <avr/power.h>
+#endif
+
+#define PIN9             9
+#define PIN10            10
+#define PIN11            11
+#define NUMPIXELS        20
+
+const int directionState = 0;
+int bttnsig = 0;
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN9, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels2 = Adafruit_NeoPixel(NUMPIXELS, PIN10, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels3 = Adafruit_NeoPixel(NUMPIXELS, PIN11, NEO_GRB + NEO_KHZ800);
+
+int delayval = 50; 
+
+void setup() {
+// put your setup code here, to run once:
+pixels.begin();
+pixels2.begin();
+pixels3.begin();
+pinMode(2, INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+bttnsig = digitalRead(2) //Does this need to be either a float or run Serial.begin?
+if (bttnsig<1000){ //Test for real incoming values
+  if (directionState == 0){
+  directionState = 1;
+for(int i=0;i<NUMPIXELS;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      pixels.setPixelColor(i, pixels.Color(0,0,250)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,250)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,250)); 
+      pixels3.show();  
+    }
+  }
+}
+
+else if (bttnsig<1000){ //Remember to test for real incoming values
+  if (directionState == 1){
+    directionState = 0;    
+  for(int i=0;i<NUMPIXELS;i++){
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+}
+}
+}
+}
