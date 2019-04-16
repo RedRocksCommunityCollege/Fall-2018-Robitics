@@ -2,17 +2,17 @@
 #ifdef __AVR__
 #include <avr/power.h>
 #include <Servo.h> 
-#endif
+#endif 
 
-#define PIN9             9
-#define PIN10            10
-#define PIN11            11
+#define PIN9             10
+#define PIN10            11
+#define PIN11            12
 #define NUMPIXELS 20
 
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN9, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels2 = Adafruit_NeoPixel(NUMPIXELS, PIN10, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels3 = Adafruit_NeoPixel(NUMPIXELS, PIN11, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN10, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels2 = Adafruit_NeoPixel(NUMPIXELS, PIN11, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels3 = Adafruit_NeoPixel(NUMPIXELS, PIN12, NEO_GRB + NEO_KHZ800);
 
 const int servoPin = 8;  // Servo pin
 const int buttonPin = 9;  // Pushbutton pin
@@ -49,14 +49,16 @@ void setup() {
          delay(15);  // waits 15ms to reach the position 
        }
      }
- 
+     }
    } 
    else if (directionState == 1) {
      if (buttonState == HIGH) {
        directionState = 0;   
        
       for (pos = 90; pos >= 50; pos -=1)
-      for(int i=0;i<NUMPIXELS;i--){
+      for(int i=0;i<NUMPIXELS;i--){ 
+        //Lights shut down from top down. If not, try i=NUMPIXELS;i>0;i--
+      }
       pixels.setPixelColor(i, pixels.Color(0,0,0)); 
       pixels.show();
       pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
