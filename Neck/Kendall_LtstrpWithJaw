@@ -46,7 +46,7 @@ for(int i=0;i<NUMPIXELS;i++){
 else if (bttnsig<1000){ //Remember to test for real incoming values
   if (directionState == 1){
     directionState = 0;    
-  for(int i=0;i<NUMPIXELS;i++){
+  for(int i=0;i<NUMPIXELS;i--){ // Lights shut down from top down. If not, try i=NUMPIXELS;i>0;i--
       pixels.setPixelColor(i, pixels.Color(0,0,0)); 
       pixels.show();
       pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
