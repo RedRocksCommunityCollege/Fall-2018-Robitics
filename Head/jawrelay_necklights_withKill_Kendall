@@ -1,0 +1,254 @@
+#include <Servo.h> 
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+#include <avr/power.h>
+#endif
+
+#define PIN10            10
+#define PIN11            11
+#define PIN12            12
+#define NUMPIXELS        50
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN10, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels2 = Adafruit_NeoPixel(NUMPIXELS, PIN11, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels3 = Adafruit_NeoPixel(NUMPIXELS, PIN12, NEO_GRB + NEO_KHZ800);
+
+
+int delayval = 50; 
+
+const int killPin = 2
+const int servoPin = 8;  // Servo pin
+const int buttonPin = 9;  // Pushbutton pin
+int killState = 0;
+int buttonState = 0; 
+int directionState = 0; 
+Servo myservo; 
+int pos = 50;
+
+ 
+
+void setup() {
+   myservo.attach(8);
+   pinMode(buttonPin, INPUT);
+   pinMode(killPin, OUTPUT);
+
+   pixels.begin();
+   pixels2.begin();
+   pixels3.begin(); 
+}
+
+ 
+
+ void loop(){
+  buttonState = digitalRead(buttonPin);
+   if (directionState == 0){
+     if (buttonState == HIGH) {
+       directionState = 1;
+       for(pos = 50; pos <= 90; pos += 1)
+       {
+         myservo.write(pos);  
+         delay(15);  // waits 15ms to reach the position 
+       }
+         for(int i=0;i<NUMPIXELS;i++){      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+
+           pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+           pixels.show();
+           pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+           pixels2.show();
+           pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+           pixels3.show();
+
+           delay(delayval);  
+    }
+     }
+   } 
+
+   else if (directionState == 1) {
+     if (buttonState == HIGH) {
+       directionState = 0;  
+       for (pos = 90; pos >= 50; pos -=1)
+       {
+         myservo.write(pos);
+         delay(15);
+       }
+         for(int i=0;i<NUMPIXELS;i++){
+
+          pixels.setPixelColor(i, pixels.Color(0,0,250)); 
+          pixels.show();
+          pixels2.setPixelColor(i, pixels2.Color(0,0,250)); 
+          pixels2.show();
+          pixels3.setPixelColor(i, pixels3.Color(0,0,250)); 
+          pixels3.show();
+
+          delay(delayval);
+   } 
+
+     }
+   }
+}
+killState = digitalRead(killPin);
+if(killState == HIGH){
+  if(directionState == 0){
+    for (pos = 50; pos <=90; pos +=1){
+      myservo.write(pos);
+      delay(5);
+    }
+    for (pos = 90; pos >=50; pos -=1){
+      myservo.write(pos);
+      delay(5);
+    }
+    for (pos = 50; pos <=60; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<12;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+    for (pos = 60; pos <=70; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<24;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+    for (pos = 70; pos <=80; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<37;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+    for (pos = 80; pos <=90; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<50;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+    for (pos = 90; pos >=50; pos -=1){
+      myservo.write(pos);
+      delay(5);
+    }
+  }
+  else if(directionState == 1){
+    for (pos = 90; pos >=50; pos -=1){
+      myservo.write(pos);
+      delay(5);
+  }
+  for(int i=0;i<NUMPIXELS;i++){
+
+          pixels.setPixelColor(i, pixels.Color(0,0,250)); 
+          pixels.show();
+          pixels2.setPixelColor(i, pixels2.Color(0,0,250)); 
+          pixels2.show();
+          pixels3.setPixelColor(i, pixels3.Color(0,0,250)); 
+          pixels3.show();
+          delay(5)
+  }
+  for (pos = 50; pos <=90; pos +=1){
+      myservo.write(pos);
+      delay(5);
+    }
+    for (pos = 90; pos >=50; pos -=1){
+      myservo.write(pos);
+      delay(5);
+    }
+    for (pos = 50; pos <=60; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<12;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+    for (pos = 60; pos <=70; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<24;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+    for (pos = 70; pos <=80; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<37;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+    for (pos = 80; pos <=90; pos +=1){
+      myservo.write(pos);
+      delay(15);
+    }
+    for(int i=0;i<50;i++){
+      // pixels.Color takes RGB values, from 0,0,0 up to 250,250,250 (WHITE)
+      //A delay val inserted here will adjust the time interval between when one and the next pixels push a value.
+      delay(15);
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+      pixels.show();
+      pixels2.setPixelColor(i, pixels2.Color(0,0,0)); 
+      pixels2.show();
+      pixels3.setPixelColor(i, pixels3.Color(0,0,0)); 
+      pixels3.show();
+      }
+      delay(300)
+    for (pos = 90; pos >=50; pos -=1){
+      myservo.write(pos);
+      delay(5);
+    }
+}
+}
